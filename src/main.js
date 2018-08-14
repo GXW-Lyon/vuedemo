@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import Router from 'vue-router'
 import routes from '@/router';
+import store from './store'
 Vue.use(Router)
 Vue.config.productionTip = false
 const router = new Router({
@@ -12,6 +13,7 @@ const router = new Router({
 });
 /* eslint-disable no-new */
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount('#app');
