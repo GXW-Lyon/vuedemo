@@ -6,31 +6,40 @@
   <!-- <div @click="add({amount:10})">{{$store.state.msg}}</div> -->
   <div>
     <p>通过属性访问：{{doneTodosCount}}</p>
-    <p>通过方法访问：{{todos}}</p>
+    <p>通过方法访问：{{doneTodos(2)}}</p>
   </div>
 </div>
 
 </template>
 <script>
   import { mapMutations } from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     name: 'index',
     data(){
-      return {}
+      return {
+        b:0
+      }
     },
     computed:{
       a(){
         return this.$store.state.login.msg
         // return this.$store.state.msg
       },
-      todos:function() {  //通过方法访问
-          return this.$store.getters.doneTodos
-      },
-      doneTodosCount () {
-		    return this.$store.getters.doneTodosCount
-      }
+      // todos:function() {  //通过方法访问
+      //     return this.$store.getters.doneTodos(2)
+      // },
+      // doneTodosCount () {
+		  //   return this.$store.getters.doneTodosCount
+      // }
+        ...mapGetters([
+            'doneTodos',
+            'doneTodosCount',
+            // ...
+        ])
     },
     created(){
+      console.log(this.$store.getters.doneTodosCount)
       const promise2 = new Promise((resolve,reject)=>{
           let a = 1
           let b = 2
@@ -60,7 +69,7 @@
       //   'incre',
       // ])
 
-      //mutations方法调用3
+       //mutations方法调用3
         // ...mapMutations({
         //   add:'increment'//将this.add()映射为this.$store.commit('increment');
         // }),

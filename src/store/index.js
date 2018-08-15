@@ -16,10 +16,23 @@ export default new vuex.Store({
     ]
   },
   getters: {
-    doneTodos: (state, getters) => {//通过方法访问
+    // doneTodos: (state, getters) => {return (id)=>{//通过方法访问
+    //   console.log(getters)
+		//   return state.todos.filter(todo => todo.id===id)
+    // }},
+    doneTodos: (state, getters) =>(id)=>{//通过方法访问
       console.log(getters)
-		  return state.todos.filter(todo => todo.done)
-		},
+		  return state.todos.filter(todo => todo.id===id)
+    },
+    // doneTodos:(state)=>function(id){
+    //   return state.todos.filter(todo => todo.id===id)
+    // },
+
+    // doneTodos:function(state){
+    //   return function(id){
+    //     return state.todos.filter(todo => todo.id===id)
+    //   }
+    // },
     doneTodosCount: (state, getters) => {//通过属性访问
         // console.log(getters)
     		return getters.doneTodos.length
