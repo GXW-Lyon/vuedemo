@@ -13,6 +13,12 @@ export default new vuex.Store({
       { id: 1, text: '水果类', done: true },
 			{ id: 2, text: '苹果', done: true },
 			{ id: 3, text: '苹果', done: true}
+    ],
+    products: [
+      {name: '鼠标', price: 20},
+      {name: '键盘', price: 40},
+      {name: '耳机', price: 60},
+      {name: '显示屏', price: 80}
     ]
   },
   getters: {
@@ -36,11 +42,27 @@ export default new vuex.Store({
     doneTodosCount: (state, getters) => {//通过属性访问
         // console.log(getters)
     		return getters.doneTodos.length
-  		}
-	},
+    },
+    saleProducts:(state,getters)=>{
+      console.log(getters)
+      let saleProducts = state.products.map(product=>{
+        return{
+          name:product.name,
+          price:product.price/2
+        }
+      })
+      return saleProducts;
+    }
+  },
+  //我将mutaions理解为store中的methods,mutations对象小红保存着更改数据的回调函数，该函数名官方规定叫type，第一个参数是state，第二个参数事payload，也就是自定义的参数。
   mutations: {
     increment(state,payload){
       state.msg+=payload.amount;
+    },
+    minusPrice(state,payload){
+      let newPrice = state.products.forEach(product=>{
+        product.price -=payload
+      })
     }
   },
   // actions:{
@@ -62,6 +84,12 @@ export default new vuex.Store({
   //     commit('increment')
   //   }
   // },
+  //
+
+
+  //a.actions提交的是mutations而不是直接更改状态。
+  //b.actions中可以包含异步操作，mutations中绝对不允许出现异步。
+  //actions中的回调函数的第一个参数是content，是一个与store实例具有相同的属性和方法的对象。
   actions:{
     increment({commit},payload){
       console.log({commit})
@@ -71,6 +99,12 @@ export default new vuex.Store({
           resolve()
         },5000);
       })
+    },
+    minusPriceAsync(context,payload){
+      // console.log(context);
+      setTimeout(()=>{
+        context.commit('minusPrice',payload)
+      },2000)
     }
   }
 

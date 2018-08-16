@@ -8,18 +8,34 @@
     <p>通过属性访问：{{doneTodosCount}}</p>
     <p>通过方法访问：{{doneTodos(2)}}</p>
   </div>
+  <product-list-one></product-list-one>
+  <product-list-two></product-list-two>
+  <!-- <product-list-one v-bind:products="products"></product-list-one>
+  <product-list-two v-bind:products="products"></product-list-two> -->
 </div>
 
 </template>
 <script>
+  import ProductListOne from './ProductListOne.vue' 
+  import ProductListTwo from './ProductListTwo.vue'
   import { mapMutations } from 'vuex'
   import { mapGetters } from 'vuex'
   export default {
     name: 'index',
     data(){
       return {
-        b:0
+        b:0,
+        // products:[
+        //   {name: '鼠标', price: 20},
+        //   {name: '键盘', price: 40},
+        //   {name: '耳机', price: 60},
+        //   {name: '显示屏', price: 80}
+        // ]
       }
+    },
+    components: {
+        'product-list-one': ProductListOne,
+        'product-list-two': ProductListTwo
     },
     computed:{
       a(){
@@ -89,6 +105,5 @@
   }
 </script>
 <style>
-
 </style>
 
